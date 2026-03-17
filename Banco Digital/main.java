@@ -20,7 +20,7 @@ public class main {
                 telas.mensagem("Encerrando o sistema. Até logo!");
                 break;
             default:
-                telas.mensagem("Opção invalida.tente novamente.");
+                telas.mensagem("Opção inválida. Tente novamente.");
             }
         } while (opcao != 3); 
         sc.close();

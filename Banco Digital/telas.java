@@ -4,7 +4,6 @@ public class telas {
 
     static Scanner sc = new Scanner(System.in);
 
-    // Exibe o menu principal
     public static void menuPrincipal() {
         System.out.println("===== MENU =====");
         System.out.println("1 - Criar conta");
@@ -13,12 +12,10 @@ public class telas {
         System.out.print("Escolha uma opção: ");
     }
 
-    // Captura a opção do usuário
-    public static int lerOpcao() {
+    public static int Opcao() {
         return Integer.parseInt(sc.nextLine().trim());
     }
 
-    // Exibe mensagens padrão
     public static void mensagem(String texto) {
         System.out.println(texto);
         System.out.println();
