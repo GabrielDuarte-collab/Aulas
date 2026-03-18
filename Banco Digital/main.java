@@ -7,20 +7,20 @@ public class main {
     
         do {
         telas.menuPrincipal();
-        opcao = Integer.parseInt(sc.nextLine().trim());
+        opcao = telas.verOpcao();
 
          switch (opcao) {
             case 1:
-                telas.mensagem("Opção 1 selecionada : Criar conta (em breve)");
+                telas.mensagem("\n Criar conta ");
                 break;
             case 2:
-                telas.mensagem("Opção 2 selecionada : Acessar conta (em breve)");
+                telas.mensagem("\n Acessando....");
                 break;
             case 3:
-                telas.mensagem("Encerrando o sistema. Até logo!");
+                telas.mensagem("\n Encerrando o sistema. Até logo!");
                 break;
             default:
-                telas.mensagem("Opção inválida. Tente novamente.");
+                telas.mensagem("\n Opção inválida. Tente novamente.");
             }
         } while (opcao != 3); 
         sc.close();

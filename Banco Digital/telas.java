@@ -3,16 +3,25 @@ import java.util.Scanner;
 public class telas {
 
     static Scanner sc = new Scanner(System.in);
-
-    public static void menuPrincipal() {
-        System.out.println("===== MENU =====");
-        System.out.println("1 - Criar conta");
-        System.out.println("2 - Acessar conta");
-        System.out.println("3 - Sair");
-        System.out.print("Escolha uma opção: ");
+    
+    private static void limpaTela(){
+      for (int i = 0 ; i < 50 ; i++) 
+        System.out.println();
     }
 
-    public static int Opcao() {
+    public static void menuPrincipal() {
+        limpaTela();
+        System.out.println("===============");
+        System.out.println("  -BANCO POO-  ");
+        System.out.println("===============");
+        System.out.println("1 - Criar conta");
+        System.out.println("2 - Acessar conta");
+        System.out.println("3 - Encerrar");
+        System.out.print("Escolha: ");
+        
+    }
+
+    public static int verOpcao() {
         return Integer.parseInt(sc.nextLine().trim());
     }
 
