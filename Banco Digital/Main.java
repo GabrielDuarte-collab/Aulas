@@ -4,20 +4,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcao;
-        Cliente c = new Cliente();
 
         do {
-                  // telas.menuPrincipal();
+            Telas.menuPrincipal();
             opcao = Telas.lerOpcao();
 
             switch (opcao) {
                 case 1:
-                  Controlador.criarConta();
-                  // telas.mensagem("\n Criar conta ");
-                  //  System.out.println("Digite seu nome: ");
-                  //  String nome = sc.nextLine();
-                  //  c.setNome(nome);
-                  //  telas.mensagem("Conta criada para: " + c.getNome());
+                    Controlador.criarConta();
                     break;
                 case 2:
                     Telas.mensagem("\n Acessando....");
