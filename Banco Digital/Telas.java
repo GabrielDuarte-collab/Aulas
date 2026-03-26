@@ -12,7 +12,7 @@ public class Telas {
     public static void menuPrincipal() {
         limpaTela();
         System.out.println("===============");
-        System.out.println("  -BANCO POO-  ");
+        System.out.println("  --BANCO POO--  ");
         System.out.println("===============");
         System.out.println("1 - Criar conta");
         System.out.println("2 - Acessar conta");
@@ -38,6 +38,7 @@ public class Telas {
         limpaTela();
         System.out.println("\n======== Cadastro ========");
     }
+
     public static void cabecalhoLogin() {
         limpaTela();
         System.out.println("\n======== Login ========");
@@ -46,8 +47,10 @@ public class Telas {
     public static int lerOpcao() {
         return Integer.parseInt(sc.nextLine().trim());
     }
-    public static String lerTexto() {
-        
+
+    public static String lerTexto(String label) {
+     System.out.print(label + ":");
+     return sc.nextLine().trim();
     }
 
     public static void mensagem(String texto) {
