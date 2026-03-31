@@ -4,7 +4,7 @@ public class Telas {
 
     static Scanner sc = new Scanner(System.in);
 
-    private static void limpaTela() {
+    public static void limpaTela() {
         for (int i = 0; i < 50; i++)
             System.out.println();
     }
@@ -56,7 +56,7 @@ public class Telas {
     public static void mensagem(String texto) {
         limpaTela();
         System.out.println(texto);
-        System.out.println("Pressione a teclar ENTER");
+        System.out.println("\nPressione a teclar ENTER");
         sc.nextLine();
     }
 }
