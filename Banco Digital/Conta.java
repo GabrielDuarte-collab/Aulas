@@ -21,6 +21,10 @@ public class Conta {
             System.out.println("Saldo insuficiente ou valor inválido.");
             return false;
         }
+
+    }
+    public String descricao() {
+        return "ContaCorrente";
     }
 
 }
