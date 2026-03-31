@@ -9,7 +9,7 @@ public class Conta {
 
     void Depositar(double valor) {
         if (valor > 0) {
-            saldo += valor;
+           this.saldo += valor;
         }
     }
     public boolean sacar(double valor) {
