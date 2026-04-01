@@ -49,8 +49,8 @@ public class Telas {
     }
 
     public static String lerTexto(String label) {
-     System.out.print(label + ":");
-     return sc.nextLine().trim();
+        System.out.print(label + ":");
+        return sc.nextLine().trim();
     }
 
     public static void mensagem(String texto) {

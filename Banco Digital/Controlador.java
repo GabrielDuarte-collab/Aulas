@@ -34,5 +34,5 @@ public class Controlador {
                 Telas.mensagem("Iválido.");
             }
         } while (!cliente.setDataNascimento(dataNacimento));
-    } 
+    }
 }
