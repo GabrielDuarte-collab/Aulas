@@ -1,36 +1,37 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
+
 
 public class Transacao {
+
+    private static final DateTimeFormatter FORMATADOR =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     private String tipo;
     private double valor;
     private LocalDate data;
 
-    private static final DateTimeFormatter FORMATADOR = DateTimeFormatter
-    .ofPattern("dd/MM/uuuu")
-    .withResolverStyle(ResolverStyle.STRICT);
-
-    public Transacao(String tipo, double valor) {
-        this.tipo = tipo;
+    public Transacao(String tipo, double valor, LocalDate data) {
+        this.tipo  = tipo;
         this.valor = valor;
-        this.data = LocalDate.parse(data, FORMATADOR);
+        this.data  = data;
+    }
 
-    }
-    
     public String getTipo() {
-        return this.tipo;
+        return tipo;
     }
+
     public double getValor() {
-        return this.valor;
+        return valor;
     }
-    public String getData() {
-        return this.data.format(FORMATADOR);
+
+    public LocalDate getData() {
+        return data;
     }
 
     @Override
     public String toString() {
-        return String.format("%-22s: R$ %10.2f %s",
-        this.tipo, this.valor, this.data.format(FORMATADOR));
+        return String.format("%-22s  R$ %10.2f   %s",
+                tipo, valor, data.format(FORMATADOR));
     }
 }

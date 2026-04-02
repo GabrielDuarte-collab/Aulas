@@ -2,61 +2,96 @@ import java.util.Scanner;
 
 public class Telas {
 
-    static Scanner sc = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public static void limpaTela() {
-        for (int i = 0; i < 50; i++)
+    public static void limparTela() {
+        for (int i = 0; i < 50; i++) {
             System.out.println();
+        }
     }
 
-    public static void menuPrincipal() {
-        limpaTela();
-        System.out.println("===============");
-        System.out.println("  --BANCO POO--  ");
-        System.out.println("===============");
-        System.out.println("1 - Criar conta");
-        System.out.println("2 - Acessar conta");
-        System.out.println("3 - Encerrar");
-        System.out.print("Escolha: ");
+    // MENUS
 
+    public static void menuPrincipal() {
+        limparTela();
+        System.out.println("\n=============================");
+        System.out.println("         BANCO JAVA           ");
+        System.out.println("=============================");
+        System.out.println("1. Criar conta");
+        System.out.println("2. Acessar minha conta");
+        System.out.println("3. Encerrar");
+        System.out.print("Opção selecionada: ");
     }
 
     public static void menuConta(String nomeCliente, double saldo) {
-        limpaTela();
-        System.out.println("\n ====================");
-        System.out.println("Bem vindo, " + nomeCliente);
-        System.out.printf("saldo: R$ %.2f%n", saldo);
-        System.out.println("====================");
+        limparTela();
+        System.out.println("\n=============================");
+        System.out.println("  Bem-vindo, " + nomeCliente);
+        System.out.printf("  Saldo: R$ %.2f%n", saldo);
+        System.out.println("=============================");
         System.out.println("1. Depositar");
         System.out.println("2. Sacar");
-        System.out.println("3. Ver extrato");
+        System.out.println("3. Transferir");
+        System.out.println("4. Ver extrato");
         System.out.println("5. Sair");
-        System.out.println("Opção selecionada");
+        System.out.print("Opção selecionada: ");
     }
 
     public static void cabecalhoCadastro() {
-        limpaTela();
+        limparTela();
         System.out.println("\n======== Cadastro ========");
     }
 
     public static void cabecalhoLogin() {
-        limpaTela();
+        limparTela();
         System.out.println("\n======== Login ========");
     }
 
-    public static int lerOpcao() {
-        return Integer.parseInt(sc.nextLine().trim());
-    }
+    // LEITURA DE DADOS
 
     public static String lerTexto(String label) {
-        System.out.print(label + ":");
-        return sc.nextLine().trim();
+        System.out.print(label + ": ");
+        return scanner.nextLine().trim();
     }
 
-    public static void mensagem(String texto) {
-        limpaTela();
-        System.out.println(texto);
-        System.out.println("\nPressione a teclar ENTER");
-        sc.nextLine();
+    public static int lerOpcao() {
+        try {
+            int opcao = Integer.parseInt(scanner.nextLine().trim());
+            return opcao;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    public static double lerValor(String label) {
+        System.out.print(label + ": R$ ");
+        try {
+            return Double.parseDouble(scanner.nextLine().trim().replace(",", "."));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    // MENSAGENS
+
+    public static void mensagem(String texto, boolean eErro) {
+        limparTela();
+
+        if (!eErro) {
+            System.out.println("\n" + texto);
+            System.out.println("\nPressione qualquer tecla para continuar...");
+        } else {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            System.out.println("\n[ERRO] " + texto);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            System.out.println("\nPressione qualquer tecla para continuar...");
+        }
+        scanner.nextLine();
+    }
+
+  
+
+    public static void separador() {
+        System.out.println("--------------------------------------------------");
     }
 }

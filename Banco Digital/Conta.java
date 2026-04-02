@@ -2,17 +2,22 @@
 public class Conta {
     private double saldo;
     private String numeroConta;
+    private Historico historico = new Historico();
 
     public double getSaldo() {
         return this.saldo;
 
     }
 
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
     public String getnumeroConta() {
         return this.numeroConta;
     }
 
-    public boolean Depositar(double valor) {
+    public boolean depositar(double valor) {
         if (valor <= 0) {
             return false;
         }
