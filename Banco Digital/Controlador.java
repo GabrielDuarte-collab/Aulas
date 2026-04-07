@@ -93,7 +93,7 @@ public class Controlador {
             case "SENHA_INCORRETA":
                 tentativas++;
                 if (tentativas < 3) {
-                    Telas.mensagem("Senha incorreta. Tentativa" + tentativas + "3", false);
+                    Telas.mensagem("Senha incorreta. Tentativa" + tentativas + "", false);
                 }
                 break;
             default:
@@ -124,7 +124,7 @@ public class Controlador {
                     verExtrato(cliente);
                     break;
                 case 5:
-                    /* sair */ break;
+                    break;
                 default:
                     Telas.mensagem("Opção inválida. Tente novamente.", true);
             }
