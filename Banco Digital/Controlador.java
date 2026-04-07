@@ -8,7 +8,6 @@ public class Controlador {
         Telas.cabecalhoCadastro();
         Cliente cliente = new Cliente();
 
-        
         String nomeInformado;
         do {
             Telas.limparTela();
@@ -36,9 +35,9 @@ public class Controlador {
             }
         } while (!cliente.setDataNascimento(data));
 
-        Telas.mensagem("Enviando dados para central...", false);
+        System.out.println("Enviando dados para central...");
         String resultado = central.cadastrar(cliente.getNome(),
-        cliente.getCpf(), cliente.getDataNascimento());
+                cliente.getCpf(), cliente.getDataNascimento());
 
         if (resultado.startsWith("ERRO")) {
             Telas.mensagem(resultado, true);
@@ -47,34 +46,63 @@ public class Controlador {
 
         String numeroConta = resultado;
 
-
         Telas.limparTela();
         System.out.println("Conta criada com sucesso!");
         System.out.println("numero da conta: " + numeroConta);
         Telas.separador();
-        
+
         String senha;
         String confirma;
 
-        do{
+        do {
             senha = Telas.lerTexto("Crie sua senha (4 dígitos)");
             confirma = Telas.lerTexto("Confirme sua senha");
 
             if (!senha.equals(confirma)) {
                 Telas.mensagem("Senhas não conferem", true);
-                
-            } else if (!senha.matches("\d(4))") {
+
+            } else if (!senha.matches("\\d{4}")) {
                 Telas.mensagem("Senha inválida.Use exatamente 4 digitos numericos!", false);
             }
-        } while (!senha.equals(confirma) || !senha.matches("\d(4))");
+        } while (!senha.equals(confirma) || !senha.matches("\\d(4))"));
 
         central.cadastrarSenha(numeroConta, senha);
         Telas.mensagem("Cadastro concluido: Numero conta: " + numeroConta, false);
-     }
-    public static void acessarConta() {
+    }
 
+    public static void acessarConta() {
         Telas.cabecalhoLogin();
-        Telas.mensagem("Login via CentralBancaria será implementado na Aula 06.", false);
+
+        String numeroConta = Telas.lerTexto("Numero da conta");
+        int tentativas = 0;
+        while (tentativas < 3) {
+           String senha = Telas.lerTexto("Senha");
+           Cliente cliente = new Cliente();
+           String status = central.login(numeroConta, senha, cliente);
+
+           switch (status) {
+            case "OK":
+                Telas.mensagem("Login bem sussecido! Bem=Vindo, " + cliente.getNome() + "!", false);
+                return;
+            case "CONTA_INEXISTENTE":
+            Telas.mensagem("Conta inexistente. Verifique o numero e tentativas novamente.", true);
+                 return;
+            case "BLOQUEADA":
+               Telas.mensagem("Conta bloqueada devido a multiplas tentativas de login falhadas.", true);
+               return;
+            case "SENHA_INCORRETA":
+                tentativas++;
+                if (tentativas < 3) {
+                    Telas.mensagem("Senha incorreta. Tentativa" + tentativas + "3", false);
+                }
+                break;
+            default:
+                Telas.mensagem("Erro de comunicação. tente novamente mais tarde!", false);
+           }
+        }
+
+
+
     }
 
     private static void menuConta(Cliente cliente) {

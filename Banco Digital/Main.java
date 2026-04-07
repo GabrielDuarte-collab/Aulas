@@ -14,13 +14,13 @@ public class Main {
                     Controlador.criarConta();
                     break;
                 case 2:
-                    Telas.mensagem("\n Acessando....");
+                    Controlador.acessarConta();
                     break;
                 case 3:
-                    Telas.mensagem("\n Encerrando o sistema. Até logo!");
+                    Telas.mensagem("\n Encerrando o sistema. Até logo!" , true);
                     break;
                 default:
-                    Telas.mensagem("\n Opção inválida. Tente novamente.");
+                    Telas.mensagem("\n Opção inválida. Tente novamente." , false);
             }
         } while (opcao != 3);
         sc.close();
