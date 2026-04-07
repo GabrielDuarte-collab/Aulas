@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-
 public class Controlador {
 
     public static final CentralBancaria central = new CentralBancaria();
@@ -11,7 +9,7 @@ public class Controlador {
         String nomeInformado;
         do {
             Telas.limparTela();
-            nomeInformado = Telas.lerTexto("Digite o nome completo: ");
+            nomeInformado = Telas.lerTexto("Digite o nome completo");
             if (!cliente.setNome(nomeInformado)) {
                 Telas.mensagem("Nome inválido!", true);
             }
@@ -62,7 +60,7 @@ public class Controlador {
                 Telas.mensagem("Senhas não conferem", true);
 
             } else if (!senha.matches("\\d{4}")) {
-                Telas.mensagem("Senha inválida.Use exatamente 4 digitos numericos!", false);
+                Telas.mensagem("Senha inválida.Use exatamente 4 digitos numericos!", true);
             }
         } while (!senha.equals(confirma) || !senha.matches("\\d(4))"));
 
@@ -76,32 +74,30 @@ public class Controlador {
         String numeroConta = Telas.lerTexto("Numero da conta");
         int tentativas = 0;
         while (tentativas < 3) {
-           String senha = Telas.lerTexto("Senha");
-           Cliente cliente = new Cliente();
-           String status = central.login(numeroConta, senha, cliente);
+            String senha = Telas.lerTexto("Senha");
+            Cliente cliente = new Cliente();
+            String status = central.login(numeroConta, senha, cliente);
 
-           switch (status) {
-            case "OK":
-                Telas.mensagem("Login bem sussecido! Bem=Vindo, " + cliente.getNome() + "!", false);
-                return;
-            case "CONTA_INEXISTENTE":
-            Telas.mensagem("Conta inexistente. Verifique o numero e tentativas novamente.", true);
-                 return;
-            case "BLOQUEADA":
-               Telas.mensagem("Conta bloqueada devido a multiplas tentativas de login falhadas.", true);
-               return;
-            case "SENHA_INCORRETA":
-                tentativas++;
-                if (tentativas < 3) {
-                    Telas.mensagem("Senha incorreta. Tentativa" + tentativas + "", false);
-                }
-                break;
-            default:
-                Telas.mensagem("Erro de comunicação. tente novamente mais tarde!", false);
-           }
+            switch (status) {
+
+                case "OK":
+                    menuConta(cliente);
+                case "CONTA_INEXISTENTE":
+                    Telas.mensagem("Conta inexistente. Verifique o numero e tentativas novamente.", true);
+                    return;
+                case "BLOQUEADA":
+                    Telas.mensagem("Conta bloqueada devido a multiplas tentativas de login falhadas.", true);
+                    return;
+                case "SENHA_INCORRETA":
+                    tentativas++;
+                    if (tentativas < 3) {
+                        Telas.mensagem("Senha incorreta. Tentativa" + tentativas + "", false);
+                    }
+                    break;
+                default:
+                    Telas.mensagem("Erro de comunicação. tente novamente mais tarde!", false);
+            }
         }
-
-
 
     }
 
@@ -112,79 +108,24 @@ public class Controlador {
             opcao = Telas.lerOpcao();
             switch (opcao) {
                 case 1:
-                    depositar(cliente);
+                    Telas.mensagem("O deposito ", false);
                     break;
                 case 2:
-                    sacar(cliente);
+                    Telas.mensagem("Sacar", false);
                     break;
                 case 3:
-                    Telas.mensagem("Transferência disponível na Aula 06 (CentralBancaria).", false);
+                    Telas.mensagem("Tranferencia", false);
                     break;
                 case 4:
-                    verExtrato(cliente);
+                    Telas.mensagem("Extrato", false);
                     break;
                 case 5:
+                    Telas.mensagem("Áte logo, " + cliente.getNome() + "!", false);
                     break;
                 default:
-                    Telas.mensagem("Opção inválida. Tente novamente.", true);
+                    Telas.mensagem("Opção inválida.", true);
             }
         } while (opcao != 5);
-    }
 
-    private static void depositar(Cliente cliente) {
-        Telas.limparTela();
-        double valor = Telas.lerValor("Valor para depósito");
-        if (valor <= 0) {
-            Telas.mensagem("Valor inválido para depósito.", true);
-            return;
-        }
-
-        cliente.getConta().depositar(valor);
-        cliente.getHistorico().adicionar(
-                new Transacao("DEPOSITO", valor, LocalDate.now()));
-
-        Telas.mensagem(
-                "Depósito realizado com sucesso!\n" +
-                        "Novo saldo: R$ " + String.format("%.2f", cliente.getSaldo()),
-                false);
-    }
-
-    private static void sacar(Cliente cliente) {
-        Telas.limparTela();
-        double valor = Telas.lerValor("Valor para saque");
-        if (valor <= 0) {
-            Telas.mensagem("Valor inválido para saque.", true);
-            return;
-        }
-        if (valor > cliente.getSaldo()) {
-            Telas.mensagem("Saldo insuficiente. Saldo atual: R$ " +
-                    String.format("%.2f", cliente.getSaldo()), true);
-            return;
-        }
-
-        cliente.getConta().sacar(valor);
-        cliente.getHistorico().adicionar(
-                new Transacao("SAQUE", valor, LocalDate.now()));
-
-        Telas.mensagem(
-                "Saque realizado com sucesso!\n" +
-                        "Novo saldo: R$ " + String.format("%.2f", cliente.getSaldo()),
-                false);
-    }
-
-    private static void verExtrato(Cliente cliente) {
-        Telas.limparTela();
-        System.out.println("\n======== Extrato ========");
-        System.out.println("Conta: " + cliente.getNome());
-        System.out.println("Tipo : " + cliente.getConta().descricao());
-        Telas.separador();
-        for (String linha : cliente.getHistorico().listar()) {
-            System.out.println(linha);
-        }
-        Telas.separador();
-        System.out.printf("Saldo atual: R$ %.2f%n", cliente.getSaldo());
-        System.out.println("\nPressione qualquer tecla para continuar...");
-
-        Telas.lerTexto("");
     }
 }

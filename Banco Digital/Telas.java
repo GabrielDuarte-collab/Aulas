@@ -89,8 +89,6 @@ public class Telas {
         scanner.nextLine();
     }
 
-  
-
     public static void separador() {
         System.out.println("--------------------------------------------------");
     }
