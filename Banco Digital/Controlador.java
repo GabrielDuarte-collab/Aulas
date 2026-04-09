@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import javax.print.DocFlavor.STRING;
+
 public class Controlador {
     private static final CentralBancaria central = new CentralBancaria();
 
@@ -108,6 +112,7 @@ public class Controlador {
     public static void menuConta(Cliente cliente) {
         int opcao;
         do {
+            central.atalizarSaldo(cliente);
             Telas.menuConta(cliente.getNome(), cliente.getSaldo());
             opcao = Telas.lerOpcao();
 
@@ -199,6 +204,20 @@ public class Controlador {
         } else {
             Telas.mensagem("Erro ao realizar a tranferencia!", true);
         }
+
+    }
+
+    private static void verExtrato(Cliente cliente) {
+        Telas.limparTela();
+        List<String> linhas = central.getExtrato(cliente);
+        StringBuilder extrato = new StringBuilder();
+        extrato.append("====== EXTRATO DE MOVIMENTAÇÕES ======\n");
+        for (String linha : linhas) {
+            extrato.append(linha).append("\n");
+        }
+        extrato.append("=========================");
+
+        Telas.mensagem(extrato.toString(), false);
 
     }
 }
